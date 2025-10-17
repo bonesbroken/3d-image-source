@@ -1,0 +1,213 @@
+<!doctype html>
+<html class="sl-theme-dark" style="height: 100%;">
+  <head>
+    <meta charset="utf-8" />
+    <title>User Settings</title>
+    <script src="https://cdn.streamlabs.com/slobs-platform/lib/streamlabs-platform.min.js"></script>
+
+    <style>
+    * {
+      font-family: var(--sl-font-sans);
+      box-sizing: inherit;
+    }
+
+    html {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: visible;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #0F1219;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #addAppSource {
+      flex: 1;
+      box-sizing: border-box;
+    }
+    #saveAppSource {
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    #group {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    #threeCanvas {
+      width: 600px;
+      height: 600px;
+      cursor: move;
+      border: 1px solid var(--sl-color-primary-50);
+    }
+
+    #imageHolder {
+      z-index: 2;
+      width: 200px;
+      position: absolute;
+      height: 200px;
+    }
+
+    #outputImage {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .settings-panel {
+      border-radius: 0.25rem;
+      flex: 1;
+      width: 250px;
+      height: 200px;
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      padding: 0.5rem;
+      align-items: center;
+      box-sizing: border-box;
+
+      & > sl-range {
+        flex: 1 1 50%;
+      }
+
+      & > sl-color-picker {
+        flex: 1 1 50%;
+      }
+
+      & span {
+        color: var(--sl-color-neutral-600);
+        font-size: var(--sl-font-size-medium);
+
+        & sl-icon {
+          padding-right: 0.25rem; 
+        }
+      }
+
+      & span.expand {
+        flex: 1 1 0%;
+      }
+    }
+
+    .color-picker {
+      padding: 0;
+
+      & > sl-color-picker {
+        flex: none;
+      }
+    }
+    
+    sl-range, sl-select {
+      padding: 0.5rem 0;
+
+      &::part(form-control-label) {
+        color: var(--sl-color-neutral-600);
+      }
+    }
+
+    sl-checkbox {
+      display: block;
+      padding: 0.1rem 0.5rem;
+    }
+
+    sl-details {
+      &::part(base) {
+        border: solid 1px #2b2e37;
+        background-color: #0f1219;
+      }
+    }
+
+    sl-details.custom-icons::part(summary-icon) {
+      /* Disable the expand/collapse animation */
+      rotate: none;
+    }
+
+    sl-color-picker {
+      box-sizing: border-box;
+    }
+
+    .component-image-container {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      gap: 1rem;
+
+      & > sl-button {
+        box-sizing: border-box;
+        flex-grow: 1;
+      }
+    }
+
+    .setting-group-3 {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .alert-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 2rem;
+      z-index: 10;
+    }
+
+    .description {
+        font-size: var(--sl-font-size-small);
+        margin-bottom: 1em;
+        color: var(--sl-color-neutral-700);
+    }
+    </style>
+  </head>
+  <body>
+    <div class="alert-container">
+      <sl-alert id="generalAlert" variant="warning" duration="10000" countdown="rtl" closable>
+        <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+        <strong class="alert-title">Settings deleted!</strong><br />
+        <div class="alert-content">Your Keyboard Settings have been deleted and reset.</div>
+      </sl-alert>
+    </div>
+    <div id="group">
+      <canvas id="threeCanvas"></canvas>
+      <sl-details summary="3D Image Settings" id='image-details' class="settings-panel custom-icons" open>
+        <sl-icon name="plus-square" slot="expand-icon"></sl-icon>
+        <sl-icon name="dash-square" slot="collapse-icon"></sl-icon>
+        <div class="description">Click and drag in the area on the left to rotate your image in 3D space.</div>
+        <input class="image-input" style="display: none" type="file" accept=".jpg, .jpeg, .png">
+        <div class="setting-group-3">
+          <sl-spinner id="spinner" style="display: none"></sl-spinner>
+          <div class="component-image-container">
+            <sl-button class="image-upload" variant="default" size="small"><sl-icon slot="prefix" name="upload"></sl-icon>Upload Image</sl-button>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <sl-spinner id="saveSpinner" style="display: none"></sl-spinner>
+          <sl-button id="saveAppSource" size="small" variant="primary" class="homepage-element"><sl-icon slot="prefix" name="floppy"></sl-icon>Save</sl-button>
+          <sl-button id="addAppSource" size="small" variant="neutral" class="homepage-element" outline><sl-icon slot="prefix" name="plus-square"></sl-icon> New Source</sl-button>
+    
+        </div>
+        
+      </sl-details>
+    </div>
+    
+  </body>
+</html>

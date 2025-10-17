@@ -1,0 +1,40 @@
+{
+    "version": "0.0.2",
+    "name": "3D Image Source",
+    "buildPath": "dist/",
+    "permissions": ["slobs.scenes-sources"],
+    "supportedPlatforms": ["twitch", "youtube", "facebook"],
+    "icon": "./images/app-sq.jpg",
+    "sources": [
+      {
+        "type": "browser_source",
+        "name": "3D Image Source",
+        "id": "3d-image-source",
+        "about": {
+          "description": "Rotate image sources in three dimensions.",
+          "bannerImage": "./images/app-icon.jpg",
+          "bullets": [
+            "Supports .jpg, .jpeg, .png"
+          ]
+        },
+        "file": "index.html",
+        "initialSize": {
+          "type": "absolute",
+          "width": 600,
+          "height": 600
+        }
+      }
+    ],
+    "pages": [
+      {
+        "slot": "top_nav",
+        "file": "settings.html",
+        "persistent": true,
+        "allowPopout": true,
+        "popOutSize": {
+          "width": 600,
+          "height": 600
+        }
+      }
+    ]
+  }
